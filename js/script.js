@@ -1,21 +1,31 @@
-
-let map;
-
-async function initMap() {
-  const { Map } = await google.maps.importLibrary("maps");
-
-  map = new Map(document.getElementById("map"), {
-    center: { lat: -34.397, lng: 150.644 },
-    zoom: 8,
-  });
-}
-
-initMap();
-
 var map;
-function initmap() {
-  map = new google.maps.Map(document.getElementByID('map'), {
-	  center: {lat: -34.397, lng: 150.644},
-	  zoom 8
+function initMap() {
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: { lat: 41.693468631466686, lng: -87.67967437837038 },
+    zoom: 15,
   });
+
+  var marker = new google.maps.Marker({
+    position: { lat: 41.693468631466686, lng: -87.67967437837038 },
+    map: map,
+  });
+
+  var infowindow = new google.maps.InfoWindow({
+    content: "This is where I attended school",
+  });
+  infowindow.open(map, marker);
+
+  var features = [
+    { position: { lat: 41.95, lng: -87.72 }, type: "clissold" },
+  ];
+
+  for (let i = 0; i < features.length; i++) {
+    const marker = new google.maps.Marker({
+      position: features[i].position,
+      icon: icons[features[i].type].icon,
+      map: map,
+    });
+  }
 }
+
+google.maps.event.addDomListener(window, 'load', initMap);
